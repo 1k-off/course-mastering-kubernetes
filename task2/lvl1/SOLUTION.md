@@ -1,0 +1,1 @@
+Updated `maxPods` in `config/kubelet.yaml`.
