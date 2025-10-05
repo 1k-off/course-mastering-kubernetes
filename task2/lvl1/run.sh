@@ -51,6 +51,10 @@ if ! is_running "kubelet"; then
 fi
 
 mkdir -p /etc/kubernetes/manifests
+cp /tmp/sa.pub /etc/kubernetes/
+cp /tmp/sa.key /etc/kubernetes/
+cp /tmp/token.csv /etc/kubernetes/token.csv
+
 cp /var/lib/kubelet/kubeconfig /etc/kubernetes/kubeconfig.yaml
 cp /var/lib/kubelet/ca.crt /etc/kubernetes/ca.crt
 
