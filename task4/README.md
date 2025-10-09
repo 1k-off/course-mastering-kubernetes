@@ -1,3 +1,6 @@
+# Useful stuff
+- [https://github.com/dereban25/go-kubernetes-controllers](https://github.com/dereban25/go-kubernetes-controllers)
+
 # Install deps
 ```bash
 mkdir data

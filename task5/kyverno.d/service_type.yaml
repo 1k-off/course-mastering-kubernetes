@@ -1,0 +1,33 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-service-types
+  annotations:
+    policies.kyverno.io/title: Restrict Service Types to ClusterIP
+    policies.kyverno.io/subject: Service
+    policies.kyverno.io/description: >-
+      This policy ensures that only Service resources of type ClusterIP can be created.
+      The policy can be bypassed with the label 'service-type-policy-bypass: true'.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: restrict-to-cluster-ip
+      match:
+        any:
+        - resources:
+            kinds:
+              - Service
+      exclude:
+        any:
+        - resources:
+            kinds:
+              - Service
+            selector:
+              matchLabels:
+                service-type-policy-bypass: "true"
+      validate:
+        message: "Service type must be ClusterIP. Other types like NodePort, LoadBalancer, or ExternalName are not allowed."
+        pattern:
+          spec:
+            type: "ClusterIP"
